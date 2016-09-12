@@ -78,8 +78,3 @@ On a Mac? Got Terminal open? Here we go:
 
     Just follow the on-screen prompts from there!
 
-
-
-## Credits and collaboration
-
-`generator-dharma` is maintained by [Jeff Nelson](https://github.com/stormwarning) at [Overhaul Media](http://overhaulmedia.com/) and is licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request.

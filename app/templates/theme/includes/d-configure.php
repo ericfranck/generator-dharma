@@ -2,45 +2,45 @@
 /**
  * Run filters and actions on theme activation
  */
-add_action( 'after_setup_theme', 'om_startup' );
+add_action( 'after_setup_theme', 'd_startup' );
 
-if ( ! function_exists( 'om_startup' ) ) {
+if ( ! function_exists( 'd_startup' ) ) {
 
-  function om_startup() {
+  function d_startup() {
 
     // launching operation cleanup
-    add_action( 'init', 'om_head_cleanup' );
+    add_action( 'init', 'd_head_cleanup' );
 
     // remove WP version from RSS
-    add_filter( 'the_generator', 'om_rss_version' );
+    add_filter( 'the_generator', 'd_rss_version' );
 
     // remove pesky injected CSS for recent comments widget
-    add_filter( 'wp_head', 'om_remove_wp_widget_recent_comments_style', 1 );
+    add_filter( 'wp_head', 'd_remove_wp_widget_recent_comments_style', 1 );
 
     // clean up comment styles in the head
-    add_action( 'wp_head', 'om_remove_recent_comments_style', 1 );
+    add_action( 'wp_head', 'd_remove_recent_comments_style', 1 );
 
     // clean up gallery output in WP
-    add_filter( 'gallery_style', 'om_gallery_style' );
+    add_filter( 'gallery_style', 'd_gallery_style' );
 
     // enqueue base scripts and styles
-    add_action( 'wp_enqueue_scripts', 'om_scripts_and_styles', 999 );
+    add_action( 'wp_enqueue_scripts', 'd_scripts_and_styles', 999 );
 
     // IE conditional wrapper
-    add_filter( 'style_loader_tag', 'om_ie_conditional', 10, 2 );
+    add_filter( 'style_loader_tag', 'd_ie_conditional', 10, 2 );
 
     // additional post-related cleaning
-    add_filter( 'img_caption_shortcode', 'om_cleaner_caption', 10, 3 );
-    add_filter( 'get_image_tag_class', 'om_image_tag_class', 0, 4 );
-    add_filter( 'get_image_tag', 'om_image_editor', 0, 4 );
-    add_filter( 'the_content', 'om_img_unautop', 30 );
+    add_filter( 'img_caption_shortcode', 'd_cleaner_caption', 10, 3 );
+    add_filter( 'get_image_tag_class', 'd_image_tag_class', 0, 4 );
+    add_filter( 'get_image_tag', 'd_image_editor', 0, 4 );
+    add_filter( 'the_content', 'd_img_unautop', 30 );
 
     // don't compress JPGs
     add_filter( 'jpeg_quality', function($arg){ return 100; } );
     add_filter( 'wp_editor_set_quality', function($arg) { return 100; } );
 
     // don't update theme
-    add_filter( 'http_request_args', 'om_dont_update_theme', 5, 2 );
+    add_filter( 'http_request_args', 'd_dont_update_theme', 5, 2 );
 
     // enable supports
     add_theme_support( 'post-thumbnails' );
@@ -61,19 +61,19 @@ if ( ! function_exists( 'om_startup' ) ) {
     define( 'DISALLOW_FILE_EDIT', true );
 
     // remove all comment functionality
-    add_action( 'init', 'om_remove_comment_support', 100 );
-    add_action( 'wp_before_admin_bar_render', 'om_remove_comments_admin_bar' );
-    add_action( 'admin_menu', 'om_remove_comment_menu' );
+    add_action( 'init', 'd_remove_comment_support', 100 );
+    add_action( 'wp_before_admin_bar_render', 'd_remove_comments_admin_bar' );
+    add_action( 'admin_menu', 'd_remove_comment_menu' );
 
     // keep Yoast SEO metabox in last place
-    add_action( 'wpseo_metabox_prio', 'om_yoast_seo_metabox_priority' );
+    add_action( 'wpseo_metabox_prio', 'd_yoast_seo_metabox_priority' );
 
     // clean up shortcode formatting/output
-    add_filter( 'the_content', 'om_clean_shortcodes' );
-    add_filter( 'the_content', 'om_fix_paragraph_nesting', 99 );
+    add_filter( 'the_content', 'd_clean_shortcodes' );
+    add_filter( 'the_content', 'd_fix_paragraph_nesting', 99 );
 
     // disable emoji support
-    add_action( 'init', 'om_disable_emoji' );
+    add_action( 'init', 'd_disable_emoji' );
 
   }
 
@@ -85,9 +85,9 @@ if ( ! function_exists( 'om_startup' ) ) {
 /**
  * Remove unneccesary items from `<head>`
  */
-if ( ! function_exists( 'om_head_cleanup' ) ) {
+if ( ! function_exists( 'd_head_cleanup' ) ) {
 
-  function om_head_cleanup() {
+  function d_head_cleanup() {
 
     // category feeds
     // remove_action( 'wp_head', 'feed_links_extra', 3 );
@@ -108,9 +108,9 @@ if ( ! function_exists( 'om_head_cleanup' ) ) {
     // WP version
     remove_action( 'wp_head', 'wp_generator' );
     // remove WP version from css
-    add_filter( 'style_loader_src', 'om_remove_wp_ver_css_js', 9999 );
+    add_filter( 'style_loader_src', 'd_remove_wp_ver_css_js', 9999 );
     // remove WP version from scripts
-    add_filter( 'script_loader_src', 'om_remove_wp_ver_css_js', 9999 );
+    add_filter( 'script_loader_src', 'd_remove_wp_ver_css_js', 9999 );
 
   }
 
@@ -118,17 +118,17 @@ if ( ! function_exists( 'om_head_cleanup' ) ) {
 
 
 // remove WP version from RSS
-if ( ! function_exists( 'om_rss_version' ) ) {
+if ( ! function_exists( 'd_rss_version' ) ) {
 
-  function om_rss_version() { return ''; }
+  function d_rss_version() { return ''; }
 
 }
 
 
 // remove WP version from scripts
-if ( ! function_exists( 'om_remove_wp_ver_css_js' ) ) {
+if ( ! function_exists( 'd_remove_wp_ver_css_js' ) ) {
 
-  function om_remove_wp_ver_css_js( $src ) {
+  function d_remove_wp_ver_css_js( $src ) {
 
     if ( strpos( $src, 'ver=' ) ) {
 
@@ -144,9 +144,9 @@ if ( ! function_exists( 'om_remove_wp_ver_css_js' ) ) {
 
 
 // remove injected CSS for recent comments widget
-if ( ! function_exists( 'om_remove_wp_widget_recent_comments_style' ) ) {
+if ( ! function_exists( 'd_remove_wp_widget_recent_comments_style' ) ) {
 
-  function om_remove_wp_widget_recent_comments_style() {
+  function d_remove_wp_widget_recent_comments_style() {
 
      if ( has_filter( 'wp_head', 'wp_widget_recent_comments_style' ) ) {
 
@@ -160,9 +160,9 @@ if ( ! function_exists( 'om_remove_wp_widget_recent_comments_style' ) ) {
 
 
 // remove injected CSS from recent comments widget
-if ( ! function_exists( 'om_remove_recent_comments_style' ) ) {
+if ( ! function_exists( 'd_remove_recent_comments_style' ) ) {
 
-  function om_remove_recent_comments_style() {
+  function d_remove_recent_comments_style() {
 
     global $wp_widget_factory;
 
@@ -178,9 +178,9 @@ if ( ! function_exists( 'om_remove_recent_comments_style' ) ) {
 
 
 // remove injected CSS from gallery
-if ( ! function_exists( 'om_gallery_style' ) ) {
+if ( ! function_exists( 'd_gallery_style' ) ) {
 
-  function om_gallery_style( $css ) {
+  function d_gallery_style( $css ) {
 
     return preg_replace( "!<style type='text/css'>(.*?)</style>!s", '', $css );
 
@@ -194,9 +194,9 @@ if ( ! function_exists( 'om_gallery_style' ) ) {
 /**
  * Load scripts and styles
  */
-if ( ! function_exists( 'om_scripts_and_styles' ) ) {
+if ( ! function_exists( 'd_scripts_and_styles' ) ) {
 
-  function om_scripts_and_styles() {
+  function d_scripts_and_styles() {
 
     if ( ! is_admin() ) {
 
@@ -238,11 +238,11 @@ if ( ! function_exists( 'om_scripts_and_styles' ) ) {
  *
  * @link code.garyjones.co.uk/ie-conditional-style-sheets-wordpress/
  */
-if ( ! function_exists( 'om_ie_conditional' ) ) {
+if ( ! function_exists( 'd_ie_conditional' ) ) {
 
-  function om_ie_conditional( $tag, $handle ) {
+  function d_ie_conditional( $tag, $handle ) {
 
-    if ( 'om-ie-only' == $handle ) {
+    if ( 'om-only' == $handle ) {
 
       $tag = '<!--[if lt IE 9]>' . "\n" . $tag . '<![endif]-->' . "\n";
 
@@ -262,9 +262,9 @@ if ( ! function_exists( 'om_ie_conditional' ) ) {
  *
  * @link devpress.com/blog/captions-in-wordpress/
  */
-if ( ! function_exists( 'om_cleaner_caption' ) ) {
+if ( ! function_exists( 'd_cleaner_caption' ) ) {
 
-  function om_cleaner_caption( $output, $attr, $content ) {
+  function d_cleaner_caption( $output, $attr, $content ) {
 
     // Return the normal output to feeds
     if ( is_feed() ) {
@@ -319,9 +319,9 @@ if ( ! function_exists( 'om_cleaner_caption' ) ) {
  *
  * @link www.sitepoint.com/wordpress-change-img-tag-html/
  */
-if ( ! function_exists( 'om_image_tag_class' ) ) {
+if ( ! function_exists( 'd_image_tag_class' ) ) {
 
-  function om_image_tag_class( $class, $id, $align, $size ) {
+  function d_image_tag_class( $class, $id, $align, $size ) {
 
     $align = 'align' . esc_attr( $align );
 
@@ -333,9 +333,9 @@ if ( ! function_exists( 'om_image_tag_class' ) ) {
 
 
 // Remove image width and height in editor, for a better, responsive world.
-if ( ! function_exists( 'om_image_editor' ) ) {
+if ( ! function_exists( 'd_image_editor' ) ) {
 
-  function om_image_editor( $html, $id, $alt, $title ) {
+  function d_image_editor( $html, $id, $alt, $title ) {
 
     return preg_replace(
       array(
@@ -361,9 +361,9 @@ if ( ! function_exists( 'om_image_editor' ) ) {
  *
  * @link interconnectit.com/2175/how-to-remove-p-tags-from-images-in-wordpress/
  */
-if ( ! function_exists( 'om_img_unautop' ) ) {
+if ( ! function_exists( 'd_img_unautop' ) ) {
 
-  function om_img_unautop( $pee ) {
+  function d_img_unautop( $pee ) {
 
     $pee = preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '<figure>\1\2\3</figure>', $pee );
 
@@ -390,7 +390,7 @@ if ( ! function_exists( 'om_img_unautop' ) ) {
  * @param string $url, request url
  * @return array request arguments
  */
-function om_dont_update_theme( $r, $url ) {
+function d_dont_update_theme( $r, $url ) {
 
   if ( 0 !== strpos( $url, 'http://api.wordpress.org/themes/update-check' ) ) {
 
@@ -414,9 +414,9 @@ function om_dont_update_theme( $r, $url ) {
  * Remove all comment functionality
  */
 // remove comment support from post types
-if ( ! function_exists( 'om_remove_comment_support' ) ) {
+if ( ! function_exists( 'd_remove_comment_support' ) ) {
 
-  function om_remove_comment_support() {
+  function d_remove_comment_support() {
 
     remove_post_type_support( 'post', 'comments' );
     remove_post_type_support( 'page', 'comments' );
@@ -426,9 +426,9 @@ if ( ! function_exists( 'om_remove_comment_support' ) ) {
 
 
 // remove comments option from admin bar
-if ( ! function_exists( 'om_remove_comments_admin_bar' ) ) {
+if ( ! function_exists( 'd_remove_comments_admin_bar' ) ) {
 
-  function om_remove_comments_admin_bar() {
+  function d_remove_comments_admin_bar() {
 
     global $wp_admin_bar;
 
@@ -440,9 +440,9 @@ if ( ! function_exists( 'om_remove_comments_admin_bar' ) ) {
 
 
 // remove comments option from dashboard menu
-if ( ! function_exists( 'om_remove_comment_menu' ) ) {
+if ( ! function_exists( 'd_remove_comment_menu' ) ) {
 
-  function om_remove_comment_menu() {
+  function d_remove_comment_menu() {
 
     remove_menu_page( 'edit-comments.php' );
 
@@ -456,9 +456,9 @@ if ( ! function_exists( 'om_remove_comment_menu' ) ) {
 /**
  * Keep Yoast SEO metabox in last place
  */
-if ( ! function_exists( 'om_yoast_seo_metabox_priority' ) ) {
+if ( ! function_exists( 'd_yoast_seo_metabox_priority' ) ) {
 
-  function om_yoast_seo_metabox_priority() {
+  function d_yoast_seo_metabox_priority() {
 
     return 'low';
 
@@ -472,9 +472,9 @@ if ( ! function_exists( 'om_yoast_seo_metabox_priority' ) ) {
 /**
  * Clean up shortcode formatting/output
  */
-if ( ! function_exists( 'om_clean_shortcodes' ) ) {
+if ( ! function_exists( 'd_clean_shortcodes' ) ) {
 
-  function om_clean_shortcodes($content) {
+  function d_clean_shortcodes($content) {
 
     $array = array(
       '<p>[' => '[',
@@ -490,9 +490,9 @@ if ( ! function_exists( 'om_clean_shortcodes' ) ) {
 }
 
 
-if ( ! function_exists( 'om_fix_paragraph_nesting' ) ) {
+if ( ! function_exists( 'd_fix_paragraph_nesting' ) ) {
 
-  function om_fix_paragraph_nesting($content) {
+  function d_fix_paragraph_nesting($content) {
 
     return str_replace( array( '<div></p>', '<p></div>' ), array( '<div>', '</div>' ), $content );
 
@@ -510,9 +510,9 @@ if ( ! function_exists( 'om_fix_paragraph_nesting' ) ) {
  *
  * @since 4.2.0
  */
-if ( ! function_exists( 'om_disable_emoji' ) ) {
+if ( ! function_exists( 'd_disable_emoji' ) ) {
 
-  function om_disable_emoji() {
+  function d_disable_emoji() {
 
     remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
     remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );

@@ -10,13 +10,13 @@
 /**
  * Customise the login screen.
  */
-add_action( 'login_head', 'om_login_styles' );
-add_filter( 'login_headerurl', 'om_login_logourl' );
-add_filter( 'login_headertitle', 'om_login_logotitle' );
+add_action( 'login_head', 'd_login_styles' );
+add_filter( 'login_headerurl', 'd_login_logourl' );
+add_filter( 'login_headertitle', 'd_login_logotitle' );
 
-if ( ! function_exists( 'om_login_styles' ) ) {
+if ( ! function_exists( 'd_login_styles' ) ) {
 
-  function om_login_styles() {
+  function d_login_styles() {
 
     wp_register_style( 'login-css', get_template_directory_uri() . '/assets/styles/login-style.css' );
     wp_enqueue_style( 'login-css' );
@@ -26,9 +26,9 @@ if ( ! function_exists( 'om_login_styles' ) ) {
 }
 
 
-if ( ! function_exists( 'om_login_logourl' ) ) {
+if ( ! function_exists( 'd_login_logourl' ) ) {
 
-  function om_login_logourl() {
+  function d_login_logourl() {
 
     return 'http://overhaulmedia.com/';
 
@@ -37,9 +37,9 @@ if ( ! function_exists( 'om_login_logourl' ) ) {
 }
 
 
-if ( ! function_exists( 'om_login_logotitle' ) ) {
+if ( ! function_exists( 'd_login_logotitle' ) ) {
 
-  function om_login_logotitle() {
+  function d_login_logotitle() {
 
     return 'From your friends at Overhaul Media';
 
@@ -68,10 +68,10 @@ function remove_default_update_nag() {
 }
 
 
-add_action( 'admin_notices', 'om_update_nag', 3 );
-add_action( 'network_admin_notices', 'om_update_nag', 3 );
+add_action( 'admin_notices', 'd_update_nag', 3 );
+add_action( 'network_admin_notices', 'd_update_nag', 3 );
 
-function om_update_nag() {
+function d_update_nag() {
 
   if ( is_multisite() && ! current_user_can( 'update_core' ) ) {
 
@@ -87,7 +87,7 @@ function om_update_nag() {
 
   }
 
-  $cur = get_preferred_from_update_core();
+  $cur = get_preferred_frd_update_core();
 
   if ( ! isset( $cur->response ) || 'upgrade' != $cur->response ) {
 

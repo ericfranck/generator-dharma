@@ -8,9 +8,9 @@
 /**
  * Basic theme setup
  */
-require_once( get_template_directory() . '/includes/om-configure.php' );
-require_once( get_template_directory() . '/includes/om-dashboard.php' );
-require_once( get_template_directory() . '/includes/om-functions.php' );
+require_once( get_template_directory() . '/includes/d-configure.php' );
+require_once( get_template_directory() . '/includes/d-dashboard.php' );
+require_once( get_template_directory() . '/includes/d-functions.php' );
 
 
 /**

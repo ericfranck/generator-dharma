@@ -39,7 +39,7 @@ if ( ! function_exists( 'theme_scripts_and_styles' ) ) {
       wp_register_style( 'theme-css', get_template_directory_uri() . '/assets/styles/style.css?' . $css_modified_time);
 
       // IE-only stylesheet
-      wp_register_style( 'om-ie-only', get_template_directory_uri() . '/assets/style/ie.css', array(), '' );
+      wp_register_style( 'ie-only', get_template_directory_uri() . '/assets/style/ie.css', array(), '' );
 
       // load scripts in the footer
       wp_register_script( 'theme-plugins', get_template_directory_uri() . '/assets/scripts/plugins.js', array( 'jquery' ), '', true );

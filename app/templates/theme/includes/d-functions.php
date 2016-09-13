@@ -5,7 +5,7 @@
  * @param  $size  Requested image size
  * @return $image Featured image URL
  */
-function om_get_featured_image( $post, $size = 'large' ) {
+function d_get_featured_image( $post, $size = 'large' ) {
 
   if ( has_post_thumbnail() ) {
 
@@ -58,7 +58,7 @@ function om_get_featured_image( $post, $size = 'large' ) {
  * @param  $url    The API request URL
  * @return $result The JSON response from the request
  */
-function om_curl_data( $url ) {
+function d_curl_data( $url ) {
 
   $ch = curl_init();
   curl_setopt( $ch, CURLOPT_URL, $url );
@@ -96,7 +96,7 @@ function om_curl_data( $url ) {
  * @link http://dimox.net/wordpress-breadcrumbs-without-a-plugin/
  * @return string link hierarchy
  */
-function om_the_breadcrumbs() {
+function d_the_breadcrumbs() {
   $text['home']     = 'Home'; // [1]
   $text['blog']     = 'Blog';
   $text['category'] = '%s Archive'; // [2]
